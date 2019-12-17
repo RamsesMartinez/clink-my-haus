@@ -6,21 +6,16 @@
 @import 'libs/html-grid';
 
 /*
-	Forty by HTML5 UP
+	Phantom by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-/* Banner */
+/* Tiles */
 
-	#banner {
+	.tiles {
 		body.is-preload & {
-			&:after {
-				opacity: 0.85;
-			}
-
-			> .inner {
-				@include vendor('filter', 'none');
+			article {
 				@include vendor('transform', 'none');
 				opacity: 1;
 			}
