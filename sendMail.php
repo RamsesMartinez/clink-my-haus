@@ -27,7 +27,7 @@ try {
     $mail->Port = $_ENV['EMAIL_PORT'];                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('contacto@clinkmyhaus.com.mx', 'Mailer');
+    $mail->setFrom('contacto@clinkmyhaus.com.mx', 'Contacto Clink My Haus');
     $mail->addAddress('faxogaw215@4tmail.com', 'Test');              // temp-mail.org
     $mail->addReplyTo('contacto@clinkmyhaus.com.mx', 'Information');
 
