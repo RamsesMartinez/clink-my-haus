@@ -28,13 +28,13 @@ try {
 
     //Recipients
     $mail->setFrom('contacto@clinkmyhaus.com.mx', 'Contacto');
-    $mail->addAddress('faxogaw215@4tmail.com', 'Test');              // temp-mail.org
-    $mail->addReplyTo('contacto@clinkmyhaus.com.mx', 'Information');
+    $mail->addAddress('faxogaw215@4tmail.com');              // temp-mail.org
+    $mail->addReplyTo('contacto@clinkmyhaus.com.mx', 'Contacto');
 
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Información Clink My Haus';
+    $mail->Subject = 'Informacion Clink My Haus';
     $mail->Body = 'This is the HTML message body <b>in bold!</b>';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
