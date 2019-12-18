@@ -27,14 +27,14 @@ try {
     $mail->Port = $_ENV['EMAIL_PORT'];                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('contacto@clinkmyhaus.com.mx', 'Contacto Clink My Haus');
+    $mail->setFrom('contacto@clinkmyhaus.com.mx', 'Contacto');
     $mail->addAddress('faxogaw215@4tmail.com', 'Test');              // temp-mail.org
     $mail->addReplyTo('contacto@clinkmyhaus.com.mx', 'Information');
 
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Here is the subject';
+    $mail->Subject = 'Información Clink My Haus';
     $mail->Body = 'This is the HTML message body <b>in bold!</b>';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
