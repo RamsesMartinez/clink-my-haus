@@ -73,7 +73,7 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
-
+*.log
 # Editor-based Rest Client
 .idea/httpRequests
 
@@ -101,3 +101,4 @@ fabric.properties
 # End of https://www.gitignore.io/api/composer,phpstorm
 
 .env
+node_modules/*
