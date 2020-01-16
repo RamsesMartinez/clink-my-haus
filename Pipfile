@@ -5,6 +5,11 @@ name = "pypi"
 
 [packages]
 django = "*"
+django-jet = "*"
+pillow = "*"
+psycopg2 = "*"
+django-environ = "*"
+gunicorn = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
