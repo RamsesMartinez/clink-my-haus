@@ -7,10 +7,17 @@ For more information on this file, see
 https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 """
 
-import os
+import environ
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'clinkmyhaus.settings')
+
+env = environ.Env()
+
+ROOT_DIR = environ.Path(__file__) - 2
+
+env.read_env(str(ROOT_DIR.path('.env')))
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.production')
 
 application = get_wsgi_application()

@@ -10,27 +10,37 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os
+import environ
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env = environ.Env()
+
+BASE_DIR = environ.Path(__file__) - 3
+PROJECT_DIR = BASE_DIR.path('clinkmyhaus')
+APPS_DIR = PROJECT_DIR.path('apps')
+
+env.read_env(str(BASE_DIR.path('.env')))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9@qp3q)+27*79ck(jul2zoff-9196xh#6x%o6q63dx7m!lx9&r'
+SECRET_KEY = env.str('DJANGO_SECRET_KEY', '9@qp3q)+27*79ck(jul2zoff-9196xh#6x%o6q63dx7m!lx9&r')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+LOCAL_APPS = [
+    'clinkmyhaus.apps.projects.apps.ProjectsConfig'
+]
 
-INSTALLED_APPS = [
+THIRD_APPS = []
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,8 +79,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'clinkmyhaus.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
+# Users & Authentication
+# AUTH_USER_MODEL = 'users.User'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -76,7 +90,7 @@ WSGI_APPLICATION = 'clinkmyhaus.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
+        'NAME': BASE_DIR.path('db.sqlite3')
     }
 }
 
@@ -115,6 +129,11 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
+
+STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
+
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
