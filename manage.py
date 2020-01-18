@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
-import os
 import sys
 import environ
 
 
 def main():
     env = environ.Env()
-    BASE_DIR = environ.Path(__file__) - 1
     env.read_env('.env')
-    env.str('DJANGO_SETTINGS_MODULE')
+    env.str('DJANGO_SETTINGS_MODULE', 'config.settings.local')
     
     try:
         from django.core.management import execute_from_command_line

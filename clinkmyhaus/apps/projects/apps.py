@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class ProjectsConfig(AppConfig):
+class ProjectsAppConfig(AppConfig):
     name = 'clinkmyhaus.apps.projects'

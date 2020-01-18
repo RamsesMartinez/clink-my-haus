@@ -5,14 +5,20 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-jet = "*"
 pillow = "*"
 psycopg2 = "*"
 django-environ = "*"
 gunicorn = "*"
+argon2-cffi = "*"
+whitenoise = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
+ipdb = "*"
+django-extensions = "*"
 
 [requires]
 python_version = "3.7"
+
+[packages.django-anymail]
+extras = [ "mailgun",]

@@ -11,13 +11,12 @@ import environ
 
 from django.core.wsgi import get_wsgi_application
 
-
 env = environ.Env()
 
 ROOT_DIR = environ.Path(__file__) - 2
 
-env.read_env(str(ROOT_DIR.path('.env')))
+env.read_env('.env')
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.production')
+env.str('DJANGO_SETTINGS_MODULE', 'config.settings.local')
 
 application = get_wsgi_application()

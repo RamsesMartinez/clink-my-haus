@@ -12,34 +12,39 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import environ
 
-env = environ.Env()
-
 BASE_DIR = environ.Path(__file__) - 3
 PROJECT_DIR = BASE_DIR.path('clinkmyhaus')
 APPS_DIR = PROJECT_DIR.path('apps')
 
-env.read_env(str(BASE_DIR.path('.env')))
+env = environ.Env()
 
+# Base
+DEBUG = env.bool('DJANGO_DEBUG', False)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
+# Language and timezone
+TIME_ZONE = 'America/Mexico_City'
+LANGUAGE_CODE = 'es'
+SITE_ID = 1
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('DJANGO_SECRET_KEY', '9@qp3q)+27*79ck(jul2zoff-9196xh#6x%o6q63dx7m!lx9&r')
+# DATABASES
+DATABASES = {
+    'default': env.db('DATABASE_URL'),
+}
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# URLs
+ROOT_URLCONF = 'config.urls'
 
-ALLOWED_HOSTS = ['*']
+# WSGI
+WSGI_APPLICATION = 'config.wsgi.application'
 
+# Users & Authentication
+AUTH_USER_MODEL = 'users.User'
 
-# Application definition
-LOCAL_APPS = [
-    'clinkmyhaus.apps.projects.apps.ProjectsConfig'
-]
-
-THIRD_APPS = []
-
+# Apps
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,51 +54,28 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
+THIRD_APPS = [
+]
+
+LOCAL_APPS = [
+    'clinkmyhaus.apps.utils.apps.UtilsAppConfig',
+    'clinkmyhaus.apps.users.apps.UsersAppConfig',
+    'clinkmyhaus.apps.projects.apps.ProjectsAppConfig'
+]
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + LOCAL_APPS
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# JET-DJANGO TOKENS
+JET_PROJECT = env.str('JET_PROJECT')
+JET_TOKEN = env.str('JET_TOKEN')
+
+# Passwords
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
 ]
-
-ROOT_URLCONF = 'config.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-WSGI_APPLICATION = 'config.wsgi.application'
-
-# Users & Authentication
-# AUTH_USER_MODEL = 'users.User'
-
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR.path('db.sqlite3')
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -113,27 +95,71 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 # Static files (CSS, JavaScript, Images)
-
-STATICFILES_LOCATION = 'static'
-MEDIAFILES_LOCATION = 'media'
-
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+STATIC_ROOT = str(BASE_DIR('staticfiles'))
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    str(PROJECT_DIR.path('static')),
+]
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+# Media
+MEDIA_ROOT = str(PROJECT_DIR('media'))
 MEDIA_URL = '/media/'
+
+# Templates
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            str(PROJECT_DIR.path('templates')),
+        ],
+        'OPTIONS': {
+            'debug': DEBUG,
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+# Security
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+
+# Email
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+
+
+# Admin
+ADMIN_URL = 'admin/'
+ADMINS = [
+    ("""Ramses Martinez""", 'ramses.mtz96@gmail.com'),
+]
+MANAGERS = ADMINS
