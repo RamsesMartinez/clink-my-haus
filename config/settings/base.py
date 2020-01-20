@@ -64,10 +64,6 @@ LOCAL_APPS = [
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + LOCAL_APPS
 
-# JET-DJANGO TOKENS
-JET_PROJECT = env.str('JET_PROJECT')
-JET_TOKEN = env.str('JET_TOKEN')
-
 # Passwords
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
