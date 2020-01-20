@@ -32,15 +32,6 @@ class User(CHouseModel, AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
-    is_client = models.BooleanField(
-        'client',
-        default=True,
-        help_text=(
-            'Help easily distinguish users and perform queries. '
-            'Clients are the main type of user.'
-        )
-    )
-
     is_verified = models.BooleanField(
         'verified',
         default=True,
