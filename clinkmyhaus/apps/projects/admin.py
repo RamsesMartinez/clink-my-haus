@@ -1,5 +1,5 @@
 from django.contrib import admin
-from clinkmyhaus.apps.projects.models.projects import Project
+from clinkmyhaus.apps.projects.models.projects import Project, ProjectRenders
 from clinkmyhaus.apps.projects.models.addresses import State, Locality
 
 
@@ -17,10 +17,14 @@ class LocalityAdmin(admin.ModelAdmin):
     ordering = ('created', 'locality_name')
 
 
+class ProjectImageInline(admin.StackedInline):
+    model = ProjectRenders
+
+
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name',)
     list_display_links = ('id', 'project_name',)
     ordering = ('created', 'project_name')
-
+    inlines = [ProjectImageInline, ]
 

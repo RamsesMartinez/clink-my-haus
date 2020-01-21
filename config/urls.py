@@ -22,6 +22,7 @@ urlpatterns = [
     # Django Admin
     path(settings.ADMIN_URL, admin.site.urls),
     path('', include(('clinkmyhaus.apps.projects.urls', 'projects'), namespace='projects')),
+    path('', include(('clinkmyhaus.apps.users.urls', 'users'), namespace='users')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -1,4 +1,4 @@
-"""Rides URLs."""
+"""Projects URLs."""
 
 # Django
 
