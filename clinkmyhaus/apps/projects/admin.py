@@ -34,7 +34,7 @@ class ProjectConstructionPlansInline(admin.StackedInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name',)
-    list_display_links = ('id', 'project_name',)
+    list_display = ('id', 'project_name', 'slug')
+    list_display_links = ('id', 'project_name', 'slug')
     ordering = ('created', 'project_name')
     inlines = [ProjectImageInline, ProjectConstructionPlansInline]

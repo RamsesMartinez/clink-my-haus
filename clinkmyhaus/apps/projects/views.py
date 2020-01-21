@@ -1,3 +1,4 @@
+from django.views.generic import DetailView
 from django.views.generic.list import ListView
 
 from clinkmyhaus.apps.projects.models.projects import Project
@@ -18,3 +19,7 @@ class ProjectListView(ListView):
         queryset = queryset.select_related('suburb', 'suburb__town_hall', 'suburb__town_hall__state')
 
         return queryset
+
+
+class ProjectDetailView(DetailView):
+    model = Project

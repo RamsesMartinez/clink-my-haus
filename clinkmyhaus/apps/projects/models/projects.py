@@ -1,8 +1,11 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.template.defaultfilters import slugify
 
 from clinkmyhaus.apps.projects.models.addresses import Suburb
 from clinkmyhaus.apps.utils.models import CHouseModel
-from clinkmyhaus.apps.utils.utils import random_pic
+from clinkmyhaus.apps.utils.utils import random_pic, unique_slug_generator
 
 
 class Project(CHouseModel):
@@ -31,6 +34,13 @@ class Project(CHouseModel):
         verbose_name='Estacionamiento',
         help_text='Cajones de estacionamiento'
     )
+    slug = models.SlugField(
+        max_length=120,
+        unique=True,
+        blank=True,
+        verbose_name='Slug',
+        help_text='Puede dejar el campo vacío, se generará automáticamente.'
+    )
     is_active = models.BooleanField(
         default=True,
         verbose_name='Activo',
@@ -50,12 +60,22 @@ class Project(CHouseModel):
 
 
 class ProjectRenders(CHouseModel):
-    image = models.ImageField(null=True, blank=True)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    image = models.ImageField(
+        null=True,
+        blank=True,
+        verbose_name='Render del Proyecto'
+    )
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        verbose_name='Proyecto',
+        help_text='Elija un proyecto'
+    )
 
     class Meta:
         verbose_name = 'Render'
         verbose_name_plural = 'Renders'
+        ordering = ['-id']
 
     def __str__(self):
         return '{}'.format(self.id)
@@ -71,3 +91,10 @@ class ProjectConstructionPlans(CHouseModel):
 
     def __str__(self):
         return '{}'.format(self.id)
+
+
+@receiver(pre_save, sender=Project)
+def project_slug_save(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance, instance.project_name, instance.slug)
+        print(instance.slug)
