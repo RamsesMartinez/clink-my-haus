@@ -151,7 +151,7 @@ X_FRAME_OPTIONS = 'DENY'
 
 # Email
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-
+EMAIL_CONTACT = env('EMAIL_CONTACT')
 
 # Admin
 ADMIN_URL = 'admin/'
