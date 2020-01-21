@@ -17,6 +17,6 @@ ROOT_DIR = environ.Path(__file__) - 2
 
 env.read_env('.env')
 
-env.str('DJANGO_SETTINGS_MODULE', 'config.settings.local')
+env.str('DJANGO_SETTINGS_MODULE', 'config.settings.production')
 
 application = get_wsgi_application()
