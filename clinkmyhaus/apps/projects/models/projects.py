@@ -1,11 +1,6 @@
-import random
-
 from django.db import models
 
-# Create your models here.
-from django.utils import timezone
-
-from clinkmyhaus.apps.projects.models.addresses import Locality
+from clinkmyhaus.apps.projects.models.addresses import Suburb
 from clinkmyhaus.apps.utils.models import CHouseModel
 from clinkmyhaus.apps.utils.utils import random_pic
 
@@ -13,14 +8,14 @@ from clinkmyhaus.apps.utils.utils import random_pic
 class Project(CHouseModel):
     project_name = models.CharField(
         max_length=120,
-        verbose_name="Proyecto",
+        verbose_name='Proyecto',
         help_text='Nombre del proyecto'
     )
-    locality = models.ForeignKey(
-        Locality,
+    suburb = models.ForeignKey(
+        Suburb,
         on_delete=models.CASCADE,
-        verbose_name='Localidad',
-        help_text='Municipio o Delegación'
+        verbose_name='Colonia',
+        help_text='Elija una colonia'
     )
     number_of_bedrooms = models.FloatField(
         default=1,
@@ -43,15 +38,15 @@ class Project(CHouseModel):
     )
 
     class Meta:
-        verbose_name = "Proyecto"
-        verbose_name_plural = "Proyectos"
+        verbose_name = 'Proyecto'
+        verbose_name_plural = 'Proyectos'
 
     def __str__(self):
-        return "{}".format(self.project_name)
+        return '{}'.format(self.project_name)
 
     @property
     def static_pic(self):
-        return "pic%s" % random_pic(1, 14)
+        return 'pic%s' % random_pic(1, 14)
 
 
 class ProjectRenders(CHouseModel):
@@ -59,8 +54,20 @@ class ProjectRenders(CHouseModel):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = "Render"
-        verbose_name_plural = "Renders"
+        verbose_name = 'Render'
+        verbose_name_plural = 'Renders'
 
     def __str__(self):
-        return "{}".format(self.id)
+        return '{}'.format(self.id)
+
+
+class ProjectConstructionPlans(CHouseModel):
+    image = models.ImageField(null=True, blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Plano de Construcción'
+        verbose_name_plural = 'Planos de Construcción'
+
+    def __str__(self):
+        return '{}'.format(self.id)

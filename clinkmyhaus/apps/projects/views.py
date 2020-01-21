@@ -11,3 +11,10 @@ class ProjectListView(ListView):
         context = super().get_context_data(**kwargs)
         context['static_pic'] = self.model
         return context
+
+    def get_queryset(self):
+        """Filter by price if it is provided in GET parameters"""
+        queryset = super(ProjectListView, self).get_queryset()
+        queryset = queryset.select_related('locality', 'locality__state')
+
+        return queryset

@@ -11,7 +11,7 @@ def email_contact(request):
         from_email = request.POST['email']
         text_content = request.POST['message']
         to_email = EMAIL_CONTACT
-        print(to_email)
+
         send_mail(
             subject,
             text_content,
