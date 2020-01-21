@@ -15,6 +15,6 @@ class ProjectListView(ListView):
     def get_queryset(self):
         """Filter by price if it is provided in GET parameters"""
         queryset = super(ProjectListView, self).get_queryset()
-        queryset = queryset.select_related('locality', 'locality__state')
+        queryset = queryset.select_related('suburb', 'suburb__town_hall', 'suburb__town_hall__state')
 
         return queryset
