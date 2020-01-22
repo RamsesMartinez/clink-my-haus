@@ -19,11 +19,11 @@ from django.urls import include, path
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # Django Admin
-    path(settings.ADMIN_URL, admin.site.urls),
-    path('', include(('clinkmyhaus.apps.projects.urls', 'projects'), namespace='projects')),
-    path('', include(('clinkmyhaus.apps.users.urls', 'users'), namespace='users')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+        path('jet', include('jet.urls', 'jet')),
+        path(settings.ADMIN_URL, admin.site.urls),
+        path('', include(('clinkmyhaus.apps.projects.urls', 'projects'), namespace='projects')),
+        path('', include(('clinkmyhaus.apps.users.urls', 'users'), namespace='users')),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 if settings.DEBUG:
