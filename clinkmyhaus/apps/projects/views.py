@@ -3,6 +3,8 @@ from django.views.generic.list import ListView
 
 from clinkmyhaus.apps.projects.models.projects import Project
 
+import logging
+
 
 class ProjectListView(ListView):
     model = Project
@@ -17,7 +19,6 @@ class ProjectListView(ListView):
         """Filter by price if it is provided in GET parameters"""
         queryset = super(ProjectListView, self).get_queryset()
         queryset = queryset.select_related('suburb', 'suburb__town_hall', 'suburb__town_hall__state')
-
         return queryset
 
 

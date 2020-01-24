@@ -50,6 +50,7 @@ class Project(CHouseModel):
     class Meta:
         verbose_name = 'Proyecto'
         verbose_name_plural = 'Proyectos'
+        ordering = ('id', )
 
     def __str__(self):
         return '{}'.format(self.project_name)

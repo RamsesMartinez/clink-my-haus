@@ -1,9 +1,6 @@
 from .base import *  # NOQA
 from .base import env
 
-# Base
-DEBUG = True
-
 # Security
 SECRET_KEY = env('DJANGO_SECRET_KEY', default='9@qp3q)+27*79ck(jul2zoff-9196xh#6x%o6q63dx7m!lx9&r')
 ALLOWED_HOSTS = [
@@ -55,3 +52,48 @@ EMAIL_PORT = 1025
 
 # django-extensions
 INSTALLED_APPS += ['django_extensions']  # noqa F405
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s [%(levelname)s] %(module)s %(process)d %(thread)d %(message)s'
+        }
+    },
+    'handlers': {
+        'default': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/clinkmyhaus.log',
+            'maxBytes': 1024*1024*5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'verbose'
+        },
+        'request_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/clinkmyhaus.request.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'verbose'
+        }
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        'django.request': {
+            'handlers': ['request_handler'],
+            'level': 'DEBUG',
+            'propagate': False
+        }
+    }
+}
