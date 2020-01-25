@@ -1,10 +1,13 @@
+require('breakpoints-js/dist/breakpoints.min');
+import browser from './browser.min';
+
 (function($) {
 
 	var	$window = $(window),
 		$body = $('body');
 
 	// Breakpoints.
-		breakpoints({
+		Breakpoints({
 			xlarge:   [ '1281px',  '1680px' ],
 			large:    [ '981px',   '1280px' ],
 			medium:   [ '737px',   '980px'  ],

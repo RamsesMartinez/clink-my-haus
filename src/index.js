@@ -1,7 +1,5 @@
 'use strict';
 
-require('./js/breakpoints-js');
-require('./js/browser.min');
 require('./js/jquery.min');
 require('./js/main.js');
 require('./sass/main.scss');

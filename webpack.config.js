@@ -2,7 +2,10 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 
-module.exports = {
+
+module.exports = env => {
+    const {NODE_ENV} = env;
+    return  {
         entry: './src/index.js',
         output: {
             filename: "bundle.js",
@@ -37,7 +40,7 @@ module.exports = {
                 },
                 {
                     test: /\.(jpg|png|gif|svg)$/,
-                    exclude: /\.(font)$/,
+                    exclude:  /fonts/,
                     use: [
                         {
                             loader: 'file-loader',
@@ -75,7 +78,7 @@ module.exports = {
                 },
                 {
                     test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                    exclude: /\.(logo)svg$/,
+                    exclude:  /images/,
                     use: [
                         {
                             loader: 'file-loader',
@@ -94,5 +97,6 @@ module.exports = {
                 chunkFilename: "[id].css"
             })
         ],
-        watch: process.env.NODE_ENV === 'development'
+        watch: NODE_ENV === 'development'
+    }
 };
