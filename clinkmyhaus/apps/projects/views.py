@@ -15,7 +15,6 @@ class ProjectsByStateListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['static_pic'] = self.model
-        logging.debug(context)
         return context
 
     def get_queryset(self):
