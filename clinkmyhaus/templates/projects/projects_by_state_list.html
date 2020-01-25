@@ -16,7 +16,7 @@
             <!-- Municipios -->
             {% for town_hall in state_projects.townhall_set.all %}
                 <section>
-                    <h3 class="mb-1">{{ town_hall.town_hall_name }}</h3>
+                    <h4 class="mb-1">{{ town_hall.town_hall_name }}</h4>
                     <!-- Colonias -->
                     <section class="tiles mt-0 mb-5">
                         {% for suburb in town_hall.suburb_set.all %}
