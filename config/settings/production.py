@@ -70,7 +70,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '%(asctime)s [%(levelname)s] %(module)s %(process)d %(thread)d %(message)s'
+            'format': '%(asctime)s\t[%(levelname)s]\t%(module)s\t%(process)d\t%(thread)d\t%(message)s'
         }
     },
     'handlers': {
