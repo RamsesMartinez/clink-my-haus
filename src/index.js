@@ -3,6 +3,7 @@
 require('./js/jquery.min');
 require('./js/main.js');
 require('./sass/main.scss');
+require('./js/fonts');
 
 function importAll(r) {
   return r.keys().map(r);

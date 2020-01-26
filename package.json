@@ -13,8 +13,14 @@
   "devDependencies": {
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
+    "@fortawesome/fontawesome-free": "^5.12.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/free-brands-svg-icons": "^5.12.0",
+    "@fortawesome/free-regular-svg-icons": "^5.12.0",
+    "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "autoprefixer": "^9.7.4",
     "babel-loader": "^8.0.6",
+    "babel-plugin-transform-imports": "^2.0.0",
     "css-loader": "^3.4.2",
     "file-loader": "^5.0.2",
     "image-webpack-loader": "^6.0.0",
@@ -27,7 +33,7 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.0",
-    "breakpoints-js": "^1.0.6"
+    "breakpoints-js": "^1.0.6",
+    "slick-carousel": "^1.8.1"
   }
 }
