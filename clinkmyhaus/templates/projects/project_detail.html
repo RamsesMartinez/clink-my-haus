@@ -3,7 +3,7 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/project-details-styles.css' %}" />
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block main %}
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-5 col-xs-12">
                     <h3>Localización</h3>
-                    <div class="map-container" data-long="{{ project.long }}" data-lgt="{{ project.lgt }}">
+                    <div class="map-container" data-long="{{ project.longitude }}" data-lgt="{{ project.latitude }}">
                         <div id="map"></div>
                     </div>
                 </div>
