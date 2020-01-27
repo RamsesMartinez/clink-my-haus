@@ -1,6 +1,10 @@
 import random
+import googlemaps
 
+from django.utils.encoding import smart_str
 from django.utils.text import slugify
+
+from config.settings.base import DJANGO_GOOGLEMAPS_KEY
 
 
 def random_pic(a: int, b: int):
@@ -27,3 +31,11 @@ def unique_slug_generator(model_instance, title, slug_field):
         object_pk = object_pk + 1
         slug = '{}-{}'.format(slug, object_pk)
     return slug
+
+
+def get_geocode(location: str):
+    gmaps = googlemaps.Client(key=DJANGO_GOOGLEMAPS_KEY)
+    geocode_result = gmaps.geocode(location)
+    if len(geocode_result) > 0:
+        return geocode_result[0]
+    return None

@@ -1,11 +1,14 @@
+import requests
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from django.template.defaultfilters import slugify
 
 from clinkmyhaus.apps.projects.models.addresses import Suburb
+from clinkmyhaus.apps.utils import utils
 from clinkmyhaus.apps.utils.models import CHouseModel
 from clinkmyhaus.apps.utils.utils import random_pic, unique_slug_generator
+from config.settings.base import DJANGO_GOOGLEMAPS_KEY
 
 
 class Project(CHouseModel):
@@ -26,7 +29,7 @@ class Project(CHouseModel):
         help_text='Número de cuartos (Ej. 1, 1.5, 2, etc)'
     )
     number_of_bathrooms = models.FloatField(
-        default=1,verbose_name='Baños',
+        default=1, verbose_name='Baños',
         help_text='Número de Baños (Ej. 1, 1.5, 2, etc)'
     )
     number_of_parking_lots = models.PositiveIntegerField(
@@ -40,6 +43,20 @@ class Project(CHouseModel):
         help_text='URL de Google Maps con la ubicación',
         default=None,
         null=True
+    )
+    latitude = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        verbose_name='Latitud',
+        help_text='Deje este campo vacío, se calculará con la url de Google Maps'
+    )
+    longitude = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        verbose_name='Longitud',
+        help_text='Deje este campo vacío, se calculará con la url de Google Maps'
     )
     slug = models.SlugField(
         max_length=120,
@@ -57,7 +74,7 @@ class Project(CHouseModel):
     class Meta:
         verbose_name = 'Proyecto'
         verbose_name_plural = 'Proyectos'
-        ordering = ('id', )
+        ordering = ('id',)
 
     def __str__(self):
         return '{}'.format(self.project_name)
@@ -105,3 +122,13 @@ class ProjectConstructionPlans(CHouseModel):
 def project_slug_save(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance, instance.project_name, instance.slug)
+
+
+@receiver(pre_save, sender=Project)
+def project_latitud_longitude_save(sender, instance, *args, **kwargs):
+    """Check from the google maps api the latitude and longitude of the inserted address."""
+    geocode = utils.get_geocode(instance.url_location)
+    if geocode is not None:
+        instance.latitude = geocode['geometry']['location']['lat']
+        instance.longitude = geocode['geometry']['location']['lng']
+    raise ValidationError('Url de Google Maps no retorna ningún resultado')

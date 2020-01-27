@@ -12,6 +12,7 @@ gunicorn = "*"
 argon2-cffi = "*"
 whitenoise = "*"
 r-django-jet = "*"
+googlemaps = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
