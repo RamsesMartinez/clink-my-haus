@@ -1,6 +1,6 @@
 require('breakpoints-js/dist/breakpoints.min');
 import browser from './browser.min';
-require('slick-carousel');
+
 (function($) {
 
 	let $window = $(window),

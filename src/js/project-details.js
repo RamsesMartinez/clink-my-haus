@@ -1,34 +1,30 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { Map } from './map';
+import { tns } from "tiny-slider/src/tiny-slider"
+require('tiny-slider/src/tiny-slider.scss');
 
-$(document).ready(function(){
+// Google Maps API
+document.addEventListener("DOMContentLoaded", function() {
+    let mapElement = document.getElementById('map');
+    let latitude = Number.parseFloat(mapElement.getAttribute('data-latitude'));
+    let longitude = Number.parseFloat(mapElement.getAttribute('data-longitude'));
 
-    $('.slider-for').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        speed: 750,
-        asNavFor: '.slider-nav'
-    });
-
-    $('.slider-nav').slick({
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: true,
-        centerMode: true,
-        focusOnSelect: true,
-        autoplay: true,
-        autoplaySpeed: 2000
+    Map.loadGoogleMapsApi().then(function(googleMaps) {
+        Map.createMap(googleMaps, mapElement, latitude, longitude);
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-  let mapElement = document.getElementById('map');
-
-  Map.loadGoogleMapsApi().then(function(googleMaps) {
-    Map.createMap(googleMaps, mapElement, 9, 10);
-  });
+// Tiny Gallery
+const slider = tns({
+    container: '.img-carousel-slider',
+    autoWidth: true,
+    autoHeight: false,
+    items: 1.3,
+    gutter: 10,
+    mouseDrag: true,
+    swipeAngle: false,
+    speed: 400,
+    arrowKeys: true,
+    controlsText: ['Anterior', 'Siguiente'],
+    lazyload: true,
+    controlsPosition: 'bottom'
 });
