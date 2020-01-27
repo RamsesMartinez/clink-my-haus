@@ -1,5 +1,6 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { Map } from './map';
 
 $(document).ready(function(){
 
@@ -22,4 +23,12 @@ $(document).ready(function(){
         autoplay: true,
         autoplaySpeed: 2000
     });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  let mapElement = document.getElementById('map');
+
+  Map.loadGoogleMapsApi().then(function(googleMaps) {
+    Map.createMap(googleMaps, mapElement, 9, 10);
+  });
 });

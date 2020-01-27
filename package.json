@@ -33,8 +33,11 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
+    "bootstrap-4-grid": "^3.2.0",
     "breakpoints-js": "^1.0.6",
+    "dotenv-webpack": "^1.7.0",
     "jquery": "^3.4.1",
+    "load-google-maps-api": "^2.0.1",
     "slick-carousel": "^1.8.1"
   }
 }

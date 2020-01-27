@@ -6,6 +6,7 @@
 @import 'libs/html-grid';
 @import 'libs/utilities';
 @import 'libs/font-colors';
+@import "~bootstrap-4-grid/scss/grid";
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900');
 
 /*
@@ -54,3 +55,5 @@
 	@import 'layout/footer';
 	@import 'layout/wrapper';
 	@import 'layout/project-details';
+
+//

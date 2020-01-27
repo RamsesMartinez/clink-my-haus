@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
+const DotEnv = require('dotenv-webpack');
 
 
 module.exports = env => {
@@ -98,7 +99,8 @@ module.exports = env => {
             new MiniCssExtractPlugin({
                 filename: "../css/[name]-styles.css",
                 chunkFilename: "[id].css"
-            })
+            }),
+            new DotEnv()
         ],
         watch: NODE_ENV === 'development'
     }

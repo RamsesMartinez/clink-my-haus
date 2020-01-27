@@ -2,6 +2,10 @@
 .slick-next {
   //color: _palette(accent1) !important;
   &::before {
-  color: _palette(accent1) !important;
+    color: _palette(accent1) !important;
   }
+}
+#map {
+  width: 100%;
+  min-height: 420px;
 }

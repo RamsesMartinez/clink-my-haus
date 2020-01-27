@@ -34,6 +34,13 @@ class Project(CHouseModel):
         verbose_name='Estacionamiento',
         help_text='Cajones de estacionamiento'
     )
+    url_location = models.URLField(
+        max_length=300,
+        verbose_name='Ubicación',
+        help_text='URL de Google Maps con la ubicación',
+        default=None,
+        null=True
+    )
     slug = models.SlugField(
         max_length=120,
         unique=True,
