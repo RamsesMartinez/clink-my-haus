@@ -1,9 +1,6 @@
 from .base import *  # NOQA
 from .base import env
 
-STATICFILES_FINDERS += [
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
 # Security
 SECRET_KEY = env('DJANGO_SECRET_KEY', default='9@qp3q)+27*79ck(jul2zoff-9196xh#6x%o6q63dx7m!lx9&r')
 ALLOWED_HOSTS = [

@@ -108,9 +108,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     str(PROJECT_DIR.path('static')),
 ]
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-]
 
 # Media
 MEDIA_ROOT = str(PROJECT_DIR('media'))
