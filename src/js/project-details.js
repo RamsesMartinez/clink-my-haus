@@ -19,6 +19,7 @@ const slider = tns({
     autoWidth: true,
     autoHeight: false,
     items: 1.3,
+    gutter: 5,
     mouseDrag: true,
     swipeAngle: false,
     center: true,
