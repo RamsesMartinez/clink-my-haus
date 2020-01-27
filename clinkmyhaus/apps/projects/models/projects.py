@@ -40,8 +40,8 @@ class Project(CHouseModel):
     url_location = models.URLField(
         max_length=300,
         verbose_name='Ubicación',
-        help_text='URL de Google Maps con la ubicación',
-        default=None,
+        help_text='URL de Google Maps con la ubicación, asegúrese de que sea una dirección valida.',
+        blank=False,
         null=True
     )
     latitude = models.CharField(
@@ -131,4 +131,7 @@ def project_latitud_longitude_save(sender, instance, *args, **kwargs):
     if geocode is not None:
         instance.latitude = geocode['geometry']['location']['lat']
         instance.longitude = geocode['geometry']['location']['lng']
-    raise ValidationError('Url de Google Maps no retorna ningún resultado')
+    else:
+        instance.url_location = None
+        instance.latitude = None
+        instance.longitude = None
