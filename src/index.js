@@ -1,12 +1,11 @@
 'use strict';
-
-require('./js/jquery.min');
+import $ from 'jquery';
 require('./js/main.js');
 require('./sass/main.scss');
 require('./js/fonts');
-
+window.$ = window.jQuery = $;
 function importAll(r) {
   return r.keys().map(r);
 }
 
-const images = importAll(require.context('./static/images/', false, /\.(png|jpe?g|svg)$/));
+importAll(require.context('./static/images/', false, /\.(png|jpe?g|svg)$/));

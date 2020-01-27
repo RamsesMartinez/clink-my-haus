@@ -1,9 +1,9 @@
 require('breakpoints-js/dist/breakpoints.min');
 import browser from './browser.min';
-
+require('slick-carousel');
 (function($) {
 
-	var	$window = $(window),
+	let $window = $(window),
 		$body = $('body');
 
 	// Breakpoints.
@@ -28,12 +28,12 @@ import browser from './browser.min';
 			$body.addClass('is-touch');
 
 	// Forms.
-		var $form = $('form');
+		let $form = $('form');
 
 		// Auto-resizing textareas.
 			$form.find('textarea').each(function() {
 
-				var $this = $(this),
+				let $this = $(this),
 					$wrapper = $('<div class="textarea-wrapper"></div>'),
 					$submits = $this.find('input[type="submit"]');
 
@@ -44,7 +44,7 @@ import browser from './browser.min';
 					.css('resize', 'none')
 					.on('keydown', function(event) {
 
-						if (event.keyCode == 13
+						if (event.keyCode === 13
 						&&	event.ctrlKey) {
 
 							event.preventDefault();
@@ -70,7 +70,7 @@ import browser from './browser.min';
 					})
 					.on('keyup', function(event) {
 
-						if (event.keyCode == 9)
+						if (event.keyCode === 9)
 							$this
 								.select();
 
@@ -78,7 +78,7 @@ import browser from './browser.min';
 					.triggerHandler('--init');
 
 				// Fix.
-					if (browser.name == 'ie'
+					if (browser.name === 'ie'
 					||	browser.mobile)
 						$this
 							.css('max-height', '10em')
@@ -87,7 +87,7 @@ import browser from './browser.min';
 			});
 
 	// Menu.
-		var $menu = $('#menu');
+		let $menu = $('#menu');
 
 		$menu.wrapInner('<div class="inner"></div>');
 
@@ -136,7 +136,7 @@ import browser from './browser.min';
 			})
 			.on('click', 'a', function(event) {
 
-				var href = $(this).attr('href');
+				let href = $(this).attr('href');
 
 				event.preventDefault();
 				event.stopPropagation();
@@ -145,7 +145,7 @@ import browser from './browser.min';
 					$menu._hide();
 
 				// Redirect.
-					if (href == '#menu')
+					if (href === '#menu')
 						return;
 
 					window.setTimeout(function() {
@@ -174,9 +174,8 @@ import browser from './browser.min';
 			.on('keydown', function(event) {
 
 				// Hide on escape.
-					if (event.keyCode == 27)
+					if (event.keyCode === 27)
 						$menu._hide();
 
 			});
-
 })(jQuery);

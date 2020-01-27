@@ -1,12 +1,28 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/project-details-styles.css' %}" />
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block main %}
     <div class="inner">
         <h1>{{ project.project_name }} | {{ project.suburb.town_hall.state.state_name }}, {{ project.suburb.suburb_name }}</h1>
-        <span class="image main"><img src="{% static 'images/pic10.jpg' %}" alt="" /></span>
-        <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel venenatis mauris vehicula hendrerit.</p>
-        <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+        <div class="slider slider-for">
+            {% for project_render in project.projectrenders_set.all %}
+                <img src="{{ project_render.image.url }}" alt="Render">
+            {% endfor %}
+        </div>
+        <div class="slider slider-nav">
+            {% for project_render in project.projectrenders_set.all %}
+                <img src="{{ project_render.image.url }}" alt="Render">
+            {% endfor %}
+        </div>
+
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/project-details.js' %}"></script>
 {% endblock %}

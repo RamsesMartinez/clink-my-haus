@@ -1,0 +1,7 @@
+.slick-prev,
+.slick-next {
+  //color: _palette(accent1) !important;
+  &::before {
+  color: _palette(accent1) !important;
+  }
+}

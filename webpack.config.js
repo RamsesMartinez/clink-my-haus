@@ -6,9 +6,12 @@ const autoprefixer = require('autoprefixer');
 module.exports = env => {
     const {NODE_ENV} = env;
     return  {
-        entry: './src/index.js',
+        entry: {
+            'bundle': './src/index.js',
+            'project-details': './src/js/project-details.js',
+        },
         output: {
-            filename: "bundle.js",
+            filename: '[name].js',
             path: path.resolve(__dirname, 'clinkmyhaus/static/js')
         },
         devtool: 'source-map',
