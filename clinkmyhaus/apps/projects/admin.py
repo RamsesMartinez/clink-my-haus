@@ -1,5 +1,6 @@
 from django.contrib import admin
-from clinkmyhaus.apps.projects.models.projects import Project, ProjectRenders, ProjectConstructionPlans, ProjectVariants
+from clinkmyhaus.apps.projects.models.projects import Project, ProjectRenders, ProjectConstructionPlans, \
+    ProjectVariants, ProjectServices
 from clinkmyhaus.apps.projects.models.addresses import State, TownHall, Suburb
 
 
@@ -36,9 +37,13 @@ class ProjectVariantsInline(admin.StackedInline):
     model = ProjectVariants
 
 
+class ProjectServicesInline(admin.TabularInline):
+    model = ProjectServices
+
+
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'slug', 'url_location')
     list_display_links = ('id', 'project_name', 'slug')
     ordering = ('created', 'project_name')
-    inlines = [ProjectImageInline, ProjectConstructionPlansInline, ProjectVariantsInline]
+    inlines = [ProjectImageInline, ProjectConstructionPlansInline, ProjectVariantsInline, ProjectServicesInline]

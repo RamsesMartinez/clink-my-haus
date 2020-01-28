@@ -68,24 +68,6 @@ class Project(CHouseModel):
         verbose_name='Slug',
         help_text='Puede dejar el campo vacío, se generará automáticamente.'
     )
-    has_comunal_roof = models.BooleanField(
-        default=False,
-        verbose_name='Rof Garden Comunal',
-        help_text='Tiene Roof Comunal'
-    )
-    has_private_roof = models.BooleanField(
-        default=False,
-        verbose_name='Rof Garden Privado',
-        help_text='Tiene Roof Privado'
-    )
-    private_roof_size = models.FloatField(
-        default=0,
-        verbose_name='Tamaño del Roof Garden Privado'
-    )
-    comunal_roof_size = models.FloatField(
-        default=0,
-        verbose_name='Tamaño del Roof Garden Comunal'
-    )
     is_active = models.BooleanField(
         default=True,
         verbose_name='Activo',
@@ -136,6 +118,24 @@ class ProjectVariants(CHouseModel):
         verbose_name='Estacionamiento',
         help_text='Cajones de estacionamiento'
     )
+    has_comunal_roof = models.BooleanField(
+        default=False,
+        verbose_name='Rof Garden Comunal',
+        help_text='Tiene Roof Comunal'
+    )
+    has_private_roof = models.BooleanField(
+        default=False,
+        verbose_name='Rof Garden Privado',
+        help_text='Tiene Roof Privado'
+    )
+    private_roof_size = models.FloatField(
+        default=0,
+        verbose_name='Tamaño del Roof Garden Privado'
+    )
+    comunal_roof_size = models.FloatField(
+        default=0,
+        verbose_name='Tamaño del Roof Garden Comunal'
+    )
     price = models.DecimalField(
         default=0,
         decimal_places=2,
@@ -153,7 +153,7 @@ class ProjectVariants(CHouseModel):
 
 
 class ProjectServices(CHouseModel):
-    project = models.ForeignKey(
+    project = models.OneToOneField(
         Project,
         on_delete=models.CASCADE,
         verbose_name='Proyecto',
@@ -196,7 +196,7 @@ class ProjectServices(CHouseModel):
     )
     has_closed_circuit = models.BooleanField(
         default=False,
-        verbose_name='Circuito Cerrada',
+        verbose_name='Circuito Cerrado',
         help_text='Tiene Circuito Cerrado'
     )
     has_swimming_pool = models.BooleanField(
