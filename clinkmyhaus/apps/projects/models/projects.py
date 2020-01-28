@@ -61,6 +61,10 @@ class Project(CHouseModel):
         help_text='Tiene entrega inmediata',
         default=True
     )
+    pre_sale = models.BooleanField(
+        verbose_name='Pre Venta',
+        default=True
+    )
     slug = models.SlugField(
         max_length=120,
         unique=True,
