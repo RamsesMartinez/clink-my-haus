@@ -135,6 +135,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'clinkmyhaus.apps.utils.context_processors.envs'
             ],
         },
     },
@@ -157,5 +158,5 @@ ADMINS = [
     ("""Ramses Martinez""", 'ramses.mtz96@gmail.com'),
 ]
 MANAGERS = ADMINS
-
-DJANGO_GOOGLEMAPS_KEY = env.str('DJANGO_GOOGLEMAPS_KEY')
+GOOGLEMAPS_KEY = env.str('GOOGLEMAPS_KEY')  # Restricted key by domain
+DJANGO_GOOGLEMAPS_KEY = env.str('DJANGO_GOOGLEMAPS_KEY')  # Restricted key by IPV 6

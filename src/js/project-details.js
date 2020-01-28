@@ -1,20 +1,25 @@
-import { Map } from './map';
 import { tns } from "tiny-slider/src/tiny-slider"
 import 'lightbox2';
 
 // Google Maps API
-document.addEventListener("DOMContentLoaded", function() {
-    let mapElement = document.getElementById('map');
-    let latitude = Number.parseFloat(mapElement.getAttribute('data-latitude'));
-    let longitude = Number.parseFloat(mapElement.getAttribute('data-longitude'));
+let mapElement = document.getElementById('map');
+let lat = Number.parseFloat(mapElement.getAttribute('data-latitude'));
+let lng = Number.parseFloat(mapElement.getAttribute('data-longitude'));
 
-    Map.loadGoogleMapsApi().then(function(googleMaps) {
-        Map.createMap(googleMaps, mapElement, latitude, longitude);
-    });
-});
+function initMap() {
+  let location = {lat, lng};
+  // The map, centered
+  let map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 15, center: location});
+  // Creates the Marker
+  new google.maps.Marker({position: location, map: map});
+}
+
+window.initMap = initMap;
+
 
 // Tiny Gallery
-const slider = tns({
+tns({
     container: '.img-carousel-slider',
     autoWidth: true,
     autoHeight: false,

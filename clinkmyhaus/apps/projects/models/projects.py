@@ -39,9 +39,16 @@ class Project(CHouseModel):
     )
     url_location = models.URLField(
         max_length=300,
-        verbose_name='Ubicación',
+        verbose_name='Url de Ubicación',
         help_text='URL de Google Maps con la ubicación, asegúrese de que sea una dirección valida.',
-        blank=False,
+        blank=True,
+        null=True
+    )
+    address = models.CharField(
+        max_length=300,
+        verbose_name='Dirección',
+        help_text='Dirección obtenida de la Url de Google Maps. Se generará automáticamente',
+        blank=True,
         null=True
     )
     latitude = models.CharField(
@@ -127,8 +134,14 @@ def project_slug_save(sender, instance, *args, **kwargs):
 @receiver(pre_save, sender=Project)
 def project_latitud_longitude_save(sender, instance, *args, **kwargs):
     """Check from the google maps api the latitude and longitude of the inserted address."""
-    geocode = utils.get_geocode(instance.url_location)
-    if geocode is not None:
+    if instance.url_location is not None:
+        geocode = utils.get_geocode(instance.url_location)
+        instance.address = geocode['formatted_address']
+        instance.latitude = geocode['geometry']['location']['lat']
+        instance.longitude = geocode['geometry']['location']['lng']
+    elif instance.address is not None:
+        geocode = utils.get_geocode(instance.address)
+        instance.address = geocode['formatted_address']
         instance.latitude = geocode['geometry']['location']['lat']
         instance.longitude = geocode['geometry']['location']['lng']
     else:
