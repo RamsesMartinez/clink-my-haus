@@ -209,7 +209,7 @@ class ProjectServices(CHouseModel):
         verbose_name='Business Center',
         help_text='Tiene Business Center'
     )
-    
+
     class Meta:
         verbose_name = 'Servicio'
         verbose_name_plural = 'Servicios'
