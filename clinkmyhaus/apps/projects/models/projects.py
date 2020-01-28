@@ -118,19 +118,20 @@ class ProjectVariants(CHouseModel):
         verbose_name='Estacionamiento',
         help_text='Cajones de estacionamiento'
     )
+
     has_comunal_roof = models.BooleanField(
         default=False,
         verbose_name='Rof Garden Comunal',
         help_text='Tiene Roof Comunal'
     )
+    private_roof_size = models.FloatField(
+        default=0,
+        verbose_name='Tamaño del Roof Garden Privado'
+    )
     has_private_roof = models.BooleanField(
         default=False,
         verbose_name='Rof Garden Privado',
         help_text='Tiene Roof Privado'
-    )
-    private_roof_size = models.FloatField(
-        default=0,
-        verbose_name='Tamaño del Roof Garden Privado'
     )
     comunal_roof_size = models.FloatField(
         default=0,
@@ -186,8 +187,8 @@ class ProjectServices(CHouseModel):
     )
     has_dining_kitchen = models.BooleanField(
         default=True,
-        verbose_name='Cocina/Comedor',
-        help_text='Tiene Cocina/Comedor'
+        verbose_name='Sala/Comedor',
+        help_text='Tiene Sala/Comedor'
     )
     has_integrated_kitchen = models.BooleanField(
         default=True,
@@ -278,7 +279,7 @@ def project_latitud_longitude_save(sender, instance, *args, **kwargs):
         instance.longitude = None
 
 
-@receiver(pre_save, sender=Project)
+@receiver(pre_save, sender=ProjectVariants)
 def project_habitable_area_save(sender, instance, *args, **kwargs):
     """Check if the habitable area is null."""
     if instance.habitable_area is None:

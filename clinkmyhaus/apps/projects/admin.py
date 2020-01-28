@@ -35,6 +35,7 @@ class ProjectConstructionPlansInline(admin.StackedInline):
 
 class ProjectVariantsInline(admin.StackedInline):
     model = ProjectVariants
+    extra = 0
 
 
 class ProjectServicesInline(admin.TabularInline):
