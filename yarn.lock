@@ -3886,6 +3886,11 @@ levenary@^1.1.0:
   dependencies:
     leven "^3.1.0"
 
+lightbox2@^2.11.1:
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/lightbox2/-/lightbox2-2.11.1.tgz#26af900e308e3bed1a9e3b828d40bd7162bcd35d"
+  integrity sha512-24vsIspqtcnkVlh6XgGK+vHm9tUc2/x4tNpAQdEAbafIrTk4fzVgozcIX7ExUG0TAlhsE7VMtWc+WD5Sb7PiXA==
+
 load-google-maps-api@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/load-google-maps-api/-/load-google-maps-api-2.0.1.tgz#3af80e2eb8196457b4b88360c092ad9575e35fec"

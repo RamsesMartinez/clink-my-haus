@@ -1,6 +1,6 @@
 import { Map } from './map';
 import { tns } from "tiny-slider/src/tiny-slider"
-require('tiny-slider/src/tiny-slider.scss');
+import 'lightbox2';
 
 // Google Maps API
 document.addEventListener("DOMContentLoaded", function() {
@@ -26,6 +26,5 @@ const slider = tns({
     speed: 400,
     arrowKeys: true,
     controlsText: ['Anterior', 'Siguiente'],
-    lazyload: true,
     controlsPosition: 'bottom'
 });

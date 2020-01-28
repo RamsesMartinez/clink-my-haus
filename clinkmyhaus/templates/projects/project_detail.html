@@ -4,6 +4,7 @@
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/project-details-styles.css' %}" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css" integrity="sha256-tBxlolRHP9uMsEFKVk+hk//ekOlXOixLKvye5W2WR5c=" crossorigin="anonymous" />
 {% endblock %}
 
 {% block main %}
@@ -15,9 +16,11 @@
                         <h1>{{ project.project_name }} | {{ project.suburb.town_hall.state.state_name }}, {{ project.suburb.suburb_name }}</h1>
                     </div>
                     <div class="col-7">
-                        <div class="img-carousel-slider">
+                        <div class="img-carousel-slider gallery">
                             {% for project_render in project.projectrenders_set.all %}
-                                <img src="{{ project_render.image.url }}" class="img-carousel-item" alt="Render">
+                                <a data-lightbox="renders-gallery" href="{{ project_render.image.url }}">
+                                    <img src="{{ project_render.image.url }}" class="img-carousel-item" alt="Render">
+                                </a>
                             {% endfor %}
                         </div>
                     </div>
