@@ -23,20 +23,6 @@ class Project(CHouseModel):
         verbose_name='Colonia',
         help_text='Elija una colonia'
     )
-    number_of_bedrooms = models.FloatField(
-        default=1,
-        verbose_name='Cuartos',
-        help_text='Número de cuartos (Ej. 1, 1.5, 2, etc)'
-    )
-    number_of_bathrooms = models.FloatField(
-        default=1, verbose_name='Baños',
-        help_text='Número de Baños (Ej. 1, 1.5, 2, etc)'
-    )
-    number_of_parking_lots = models.PositiveIntegerField(
-        default=1,
-        verbose_name='Estacionamiento',
-        help_text='Cajones de estacionamiento'
-    )
     url_location = models.URLField(
         max_length=300,
         verbose_name='Url de Ubicación',
@@ -65,12 +51,40 @@ class Project(CHouseModel):
         verbose_name='Longitud',
         help_text='Deje este campo vacío, se calculará con la url de Google Maps'
     )
+    delivery_date = models.DateField(
+        verbose_name='Fecha de entrega',
+        blank=True,
+        null=True
+    )
+    immediate_delivery = models.BooleanField(
+        verbose_name='Entrega Inmediata',
+        help_text='Tiene entrega inmediata',
+        default=True
+    )
     slug = models.SlugField(
         max_length=120,
         unique=True,
         blank=True,
         verbose_name='Slug',
         help_text='Puede dejar el campo vacío, se generará automáticamente.'
+    )
+    has_comunal_roof = models.BooleanField(
+        default=False,
+        verbose_name='Rof Garden Comunal',
+        help_text='Tiene Roof Comunal'
+    )
+    has_private_roof = models.BooleanField(
+        default=False,
+        verbose_name='Rof Garden Privado',
+        help_text='Tiene Roof Privado'
+    )
+    private_roof_size = models.FloatField(
+        default=0,
+        verbose_name='Tamaño del Roof Garden Privado'
+    )
+    comunal_roof_size = models.FloatField(
+        default=0,
+        verbose_name='Tamaño del Roof Garden Comunal'
     )
     is_active = models.BooleanField(
         default=True,
@@ -89,6 +103,120 @@ class Project(CHouseModel):
     @property
     def static_pic(self):
         return 'pic%s' % random_pic(1, 14)
+
+
+class ProjectVariants(CHouseModel):
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        verbose_name='Proyecto',
+        help_text='Elija un proyecto'
+    )
+    area = models.FloatField(
+        default=1,
+        verbose_name='Superficie'
+    )
+    habitable_area = models.FloatField(
+        default=1,
+        verbose_name='Superficie Habitable',
+        blank=True,
+        null=True
+    )
+    number_of_bedrooms = models.FloatField(
+        default=1,
+        verbose_name='Cuartos',
+        help_text='Número de cuartos (Ej. 1, 1.5, 2, etc)'
+    )
+    number_of_bathrooms = models.FloatField(
+        default=1, verbose_name='Baños',
+        help_text='Número de Baños (Ej. 1, 1.5, 2, etc)'
+    )
+    number_of_parking_lots = models.PositiveIntegerField(
+        default=1,
+        verbose_name='Estacionamiento',
+        help_text='Cajones de estacionamiento'
+    )
+    price = models.DecimalField(
+        default=0,
+        decimal_places=2,
+        max_digits=13,
+        verbose_name='Precio',
+    )
+
+    class Meta:
+        verbose_name = 'Variante de proyecto'
+        verbose_name_plural = 'Variantes de proyectos'
+        ordering = ('id',)
+
+    def __str__(self):
+        return '{} - '.format(self.project.project_name, self.id)
+
+
+class ProjectServices(CHouseModel):
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        verbose_name='Proyecto',
+        help_text='Elija un proyecto'
+    )
+    has_lobby = models.BooleanField(
+        default=False,
+        verbose_name='Lobby',
+        help_text='Tiene Roof Comunal'
+    )
+    has_elevator = models.BooleanField(
+        default=False,
+        verbose_name='Elevador',
+        help_text='Tiene Elevador'
+    )
+    has_surveillance = models.BooleanField(
+        default=False,
+        verbose_name='Vigilancia',
+        help_text='Tiene Vigilancia'
+    )
+    has_cellar = models.BooleanField(
+        default=False,
+        verbose_name='Bodega',
+        help_text='Tiene Bodega'
+    )
+    has_gym = models.BooleanField(
+        default=False,
+        verbose_name='Gimnasio',
+        help_text='Tiene Gimnasio'
+    )
+    has_dining_kitchen = models.BooleanField(
+        default=True,
+        verbose_name='Cocina/Comedor',
+        help_text='Tiene Cocina/Comedor'
+    )
+    has_integrated_kitchen = models.BooleanField(
+        default=True,
+        verbose_name='Cocina Integrada',
+        help_text='Tiene Cocina Integrada'
+    )
+    has_closed_circuit = models.BooleanField(
+        default=False,
+        verbose_name='Circuito Cerrada',
+        help_text='Tiene Circuito Cerrado'
+    )
+    has_swimming_pool = models.BooleanField(
+        default=False,
+        verbose_name='Alberca',
+        help_text='Tiene Alberca'
+    )
+    has_business_center = models.BooleanField(
+        default=False,
+        verbose_name='Business Center',
+        help_text='Tiene Business Center'
+    )
+    
+    class Meta:
+        verbose_name = 'Servicio'
+        verbose_name_plural = 'Servicios'
+        ordering = ('id',)
+
+    def __str__(self):
+        return '{} - '.format(self.project.project_name, self.id)
 
 
 class ProjectRenders(CHouseModel):
@@ -148,3 +276,10 @@ def project_latitud_longitude_save(sender, instance, *args, **kwargs):
         instance.url_location = None
         instance.latitude = None
         instance.longitude = None
+
+
+@receiver(pre_save, sender=Project)
+def project_habitable_area_save(sender, instance, *args, **kwargs):
+    """Check if the habitable area is null."""
+    if instance.habitable_area is None:
+        instance.habitable_area = instance.area
