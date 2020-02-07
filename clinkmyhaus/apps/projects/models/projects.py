@@ -1,5 +1,3 @@
-import requests
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -8,7 +6,6 @@ from clinkmyhaus.apps.projects.models.addresses import Suburb
 from clinkmyhaus.apps.utils import utils
 from clinkmyhaus.apps.utils.models import CHouseModel
 from clinkmyhaus.apps.utils.utils import random_pic, unique_slug_generator
-from config.settings.base import DJANGO_GOOGLEMAPS_KEY
 
 
 class Project(CHouseModel):
@@ -91,7 +88,7 @@ class Project(CHouseModel):
         return 'pic%s' % random_pic(1, 14)
 
 
-class ProjectVariants(CHouseModel):
+class Apartment(CHouseModel):
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
@@ -147,16 +144,15 @@ class ProjectVariants(CHouseModel):
         max_digits=13,
         verbose_name='Precio',
     )
-
     construction_plane = models.ImageField(
-        verbose_name='Planos de contrucción',
+        verbose_name='Planos del departamento',
         null=True,
         blank=True
     )
 
     class Meta:
-        verbose_name = 'Variante de proyecto'
-        verbose_name_plural = 'Variantes de proyectos'
+        verbose_name = 'Departamento'
+        verbose_name_plural = 'Departamentos'
         ordering = ('id',)
 
     def __str__(self):
@@ -277,7 +273,7 @@ def project_latitud_longitude_save(sender, instance, *args, **kwargs):
         instance.longitude = None
 
 
-@receiver(pre_save, sender=ProjectVariants)
+@receiver(pre_save, sender=Apartment)
 def project_habitable_area_save(sender, instance, *args, **kwargs):
     """Check if the habitable area is null."""
     if instance.habitable_area is None:
