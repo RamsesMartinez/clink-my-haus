@@ -47,14 +47,17 @@
                 <h2>Contáctanos</h2>
                 <form method="post" action="{% url 'users:email_contact' %}">{% csrf_token %}
                     <div class="fields">
-                        <div class="field half">
-                            <input type="text" name="name" id="name" placeholder="Nombre" aria-label="name"/>
+                        <div class="field">
+                            <input type="text" name="name" id="name" placeholder="Nombre" aria-label="name" required/>
                         </div>
                         <div class="field half">
-                            <input type="email" name="email" id="email" placeholder="Email" aria-label="email"/>
+                            <input type="email" name="email" id="email" placeholder="Email" aria-label="email" required/>
+                        </div>
+                        <div class="field half">
+                            <input type="tel" name="phone" id="phone" placeholder="Número de Teléfono" aria-label="Phone" required />
                         </div>
                         <div class="field">
-                            <textarea name="message" id="message" placeholder="Mensaje" aria-label="message"></textarea>
+                            <textarea name="message" id="message" placeholder="Mensaje" aria-label="message" required></textarea>
                         </div>
                     </div>
                     <ul class="actions">
@@ -69,6 +72,11 @@
                     <li><a href="#" class="icon p-2 fab style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
                     <li><a href="#" class="icon p-2 fab style2 fa-instagram"><span class="label">Instagram</span></a></li>
                     <li><a href="#" class="icon p-2 fas style2 fa-phone"><span class="label">Phone</span></a></li>
+                    <li>
+                        <a href="https://api.whatsapp.com/send?phone=5215535033670&text=Hola">
+                            <i href="#" class="icon p-2 fab style2 fa-whatsapp"><span class="label">Whatsapp</span></i>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <ul class="copyright">

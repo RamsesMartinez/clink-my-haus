@@ -125,7 +125,7 @@ class ProjectVariants(CHouseModel):
 
     has_comunal_roof = models.BooleanField(
         default=False,
-        verbose_name='Rof Garden Comunal',
+        verbose_name='Roof Garden Comunal',
         help_text='Tiene Roof Comunal'
     )
     private_roof_size = models.FloatField(
@@ -134,7 +134,7 @@ class ProjectVariants(CHouseModel):
     )
     has_private_roof = models.BooleanField(
         default=False,
-        verbose_name='Rof Garden Privado',
+        verbose_name='Roof Garden Privado',
         help_text='Tiene Roof Privado'
     )
     comunal_roof_size = models.FloatField(
@@ -146,6 +146,12 @@ class ProjectVariants(CHouseModel):
         decimal_places=2,
         max_digits=13,
         verbose_name='Precio',
+    )
+
+    construction_plane = models.ImageField(
+        verbose_name='Planos de contrucción',
+        null=True,
+        blank=True
     )
 
     class Meta:
@@ -241,18 +247,6 @@ class ProjectRenders(CHouseModel):
         verbose_name = 'Render'
         verbose_name_plural = 'Renders'
         ordering = ['-id']
-
-    def __str__(self):
-        return '{}'.format(self.id)
-
-
-class ProjectConstructionPlans(CHouseModel):
-    image = models.ImageField(null=True, blank=True)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Plano de Construcción'
-        verbose_name_plural = 'Planos de Construcción'
 
     def __str__(self):
         return '{}'.format(self.id)

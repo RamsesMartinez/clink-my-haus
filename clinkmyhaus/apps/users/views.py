@@ -9,7 +9,10 @@ def email_contact(request):
     if request.method == 'POST':
         subject = 'Contacto Clink My Haus'
         from_email = request.POST['email']
-        text_content = request.POST['message']
+        message = request.POST['message']
+        name = request.POST['name']
+        phone = request.POST['phone']
+        text_content = "{} \n\n{}\n{}".format(message, name, phone)
         to_email = EMAIL_CONTACT
 
         send_mail(
