@@ -105,6 +105,13 @@ class Apartment(CHouseModel):
         blank=True,
         null=True
     )
+    apartment_number = models.CharField(
+        default='',
+        blank=True,
+        null=True,
+        verbose_name='Número de departamento',
+        max_length=8
+    )
     number_of_bedrooms = models.FloatField(
         default=1,
         verbose_name='Cuartos',
