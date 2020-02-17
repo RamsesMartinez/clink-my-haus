@@ -110,6 +110,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     str(PROJECT_DIR.path('static')),
 ]
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Media
 MEDIA_ROOT = str(PROJECT_DIR('media'))
