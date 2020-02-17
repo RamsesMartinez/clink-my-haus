@@ -23,7 +23,7 @@ DEBUG = env.bool('DJANGO_DEBUG', False)
 
 # Language and timezone
 TIME_ZONE = 'America/Mexico_City'
-LANGUAGE_CODE = 'es-MX'
+LANGUAGE_CODE = 'es-mx'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
