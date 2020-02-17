@@ -23,7 +23,7 @@ DEBUG = env.bool('DJANGO_DEBUG', False)
 
 # Language and timezone
 TIME_ZONE = 'America/Mexico_City'
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'es-MX'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
@@ -46,6 +46,7 @@ AUTH_USER_MODEL = 'users.User'
 
 # Apps
 DJANGO_APPS = [
+    'jet.dashboard',
     'jet',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,6 +54,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize'
 ]
 
 THIRD_APPS = [

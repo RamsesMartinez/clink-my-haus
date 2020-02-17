@@ -10,7 +10,6 @@
 		@include padding(5em, 0, (3em, 0, -5em, 0));
 
 		.logo {
-			display: block;
 			border-bottom: 0;
 			color: inherit;
 			font-weight: _font(weight-bold);
@@ -30,8 +29,8 @@
 
 				img {
 					display: block;
-					width: 2em;
-					height: 2em;
+					width: 4em;
+					height: 4em;
 				}
 			}
 			.title {

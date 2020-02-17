@@ -232,6 +232,9 @@ class ProjectServices(CHouseModel):
     def __str__(self):
         return '{} - '.format(self.project.project_name, self.id)
 
+    def get_fields(self):
+        return [(field.name, field.value_to_string(self)) for field in ProjectServices._meta.fields]
+
 
 class ProjectRenders(CHouseModel):
     image = models.ImageField(

@@ -1,4 +1,6 @@
 {% extends 'base/base.html' %}
+{% load humanize %}
+
 {% load static %}
 
 {% block styles %}
@@ -13,6 +15,9 @@
                 <div class="row gtr-uniform">
                     <div class="col-12">
                         <h1>{{ project.project_name }} | {{ project.suburb.town_hall.state.state_name }}, {{ project.suburb.suburb_name }}</h1>
+                        {% if project.immediate_delivery %}
+                            <a href="#" class="button primary fit">ENTREGA INMEDIATA DISPONIBLE</a>
+                        {% endif %}
                     </div>
                     <div class="col-7">
                         <div class="img-carousel-slider gallery">
@@ -28,8 +33,128 @@
                         <div class="map-container">
                             <div id="map" data-longitude="{{ project.longitude }}" data-latitude="{{ project.latitude }}"></div>
                         </div>
-                        <p>{{ project.address }}</p>
                     </div>
+                </div>
+            </div>
+            <div class="row gtr-uniform mb-3">
+                <div class="col-12">
+                    <h3>Servicios</h3>
+                </div>
+            </div>
+            <div class="row gtr-uniform mb-5">
+                <!-- Tiene Vigilancia -->
+                {% if project.projectservices.has_surveillance %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Vigilancia</span>
+                    </div>
+                {% endif %}
+                <!-- Tiene Elevador -->
+                {% if project.projectservices.has_elevator %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Elevador</span>
+                    </div>
+                {% endif %}
+                <!-- Tiene Gimnasio -->
+                {% if project.projectservices.has_gym %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Gimnasio</span>
+                    </div>
+                {% endif %}
+                <!-- Tiene Lobby -->
+                {% if project.projectservices.has_lobby %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Lobby</span>
+                    </div>
+                {% endif %}
+                <!-- Tiene Bodega -->
+                {% if project.projectservices.has_cellar %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Bodega</span>
+                    </div>
+                {% endif %}
+                <!-- Tiene Circuito Cerrado -->
+                {% if project.projectservices.has_closed_circuit %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Circuito Cerrado</span>
+                    </div>
+                {% endif %}
+                <!-- Tiene Sala/Comedor -->
+                {% if project.projectservices.has_dining_kitchen %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Sala/Comedor</span>
+                    </div>
+                {% endif %}
+                <!-- Tiene Cocina integrada -->
+                {% if project.projectservices.has_integrated_kitchen %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Cocina integrada</span>
+                    </div>
+                {% endif %}
+                <!-- Tiene Tiene Alberca -->
+                {% if project.projectservices.has_swimming_pool %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Alberca</span>
+                    </div>
+                {% endif %}
+                <!-- Tiene Business Center -->
+                {% if project.projectservices.has_business_center %}
+                    <div class="col-4 d-flex align-content-center">
+                        <a href="#" class="icon p-2 fa style1 fa-check"><span class="label">Check</span></a>
+                        <span class="p-2">Business Center</span>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="row gtr-uniform">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <th>Plano</th>
+                            <th>Superficie habitable</th>
+                            <th>Recámaras</th>
+                            <th>Baños</th>
+                            <th>Estacionamientos</th>
+                            <th>Roof Privado</th>
+                            <th>Roof Comunal</th>
+                            <th>Precio</th>
+                        </tr>
+                        <tbody>
+                        {% for apartment in project.apartment_set.all %}
+                            <tr>
+                                <td>
+                                    <img src="{{ apartment.construction_plane.url }}" class="table--img" alt="">
+                                </td>
+                                <td>{{ apartment.habitable_area|floatformat }}</td>
+                                <td>{{ apartment.number_of_bedrooms|floatformat }}</td>
+                                <td>{{ apartment.number_of_bathrooms|floatformat }}</td>
+                                <td>{{ apartment.number_of_parking_lots|floatformat }}</td>
+                                <td>
+                                    {% if apartment.has_comunal_roof %}
+                                        {{ apartment.private_roof_size|floatformat  }}
+                                    {% else %}
+                                        X
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if apartment.has_private_roof %}
+                                        {{ apartment.comunal_roof_size|floatformat  }}
+                                    {% else %}
+                                        X
+                                    {% endif %}
+                                </td>
+                                <td>MN ${{ apartment.price|intcomma }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>

@@ -13,6 +13,7 @@ argon2-cffi = "*"
 whitenoise = "*"
 r-django-jet = "*"
 googlemaps = "*"
+django-anymail = {extras = [ "mailgun",]}
 
 [dev-packages]
 django-debug-toolbar = "*"
@@ -22,5 +23,3 @@ django-extensions = "*"
 [requires]
 python_version = "3.7"
 
-[packages.django-anymail]
-extras = [ "mailgun",]

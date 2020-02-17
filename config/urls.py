@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
         path('jet', include('jet.urls', 'jet')),
+        path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
         path(settings.ADMIN_URL, admin.site.urls),
         path('', include(('clinkmyhaus.apps.projects.urls', 'projects'), namespace='projects')),
         path('', include(('clinkmyhaus.apps.users.urls', 'users'), namespace='users')),
